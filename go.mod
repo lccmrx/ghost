@@ -1,4 +1,4 @@
-module ghost
+module github.com/lccmrx/ghost
 
 go 1.24.5
 
