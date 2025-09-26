@@ -18,7 +18,7 @@ func applyDNSConfig() error {
 	fmt.Println("\nthese next steps will setup the resolver for your LTLD.\n>> these require `sudo` <<\nPlease run in your terminal!")
 
 	fmt.Println("\n>>  sudo mkdir -p /etc/resolver")
-	fmt.Printf(">>  sudo echo -n 'nameserver 127.0.0.1 >> /etc/resolver/%s\n", config)
+	fmt.Printf(">>  sudo echo -n 'nameserver 127.0.0.1' >> /etc/resolver/%s\n", config)
 	fmt.Println(">>  sudo dscacheutil -flushcache")
 	fmt.Println(">>  sudo killall -HUP mDNSResponder\n")
 
