@@ -1,4 +1,4 @@
-package main
+package traefik
 
 type DynamicConfig struct {
 	HTTP HttpConfig `yaml:"http"`
