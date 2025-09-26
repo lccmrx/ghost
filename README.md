@@ -1,4 +1,4 @@
-# GHOST
+# GHOST 👻
 
 <p align="center">
     <img src="docs/images/ghost.png" alt="drawing" width="600"/>
@@ -36,6 +36,19 @@ service-j.local -> localhost:7010
 ```
 
 Plain and simple.
+
+## How to install
+
+If you already got your Golang installation, just do a:
+```bash
+> go install github.com/lccmrx/ghost@latest
+```
+
+### WIP
+Or use HomeBrew:
+```bash
+brew install ghost
+```
 
 ## How to use
 
