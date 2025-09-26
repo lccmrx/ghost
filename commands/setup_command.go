@@ -2,6 +2,7 @@ package commands
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"os"
 	"path"
@@ -18,17 +19,22 @@ func setup() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "setup",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			os.Mkdir(ghostHome, 0755)
+			fmt.Printf("using `%s` as GHOST_HOME", ghostHome)
+
+			err := os.Mkdir(ghostHome, 0755)
+			if err != nil {
+				return fmt.Errorf("failed to create `GHOST_HOME`: %w", err)
+			}
 
 			corefileTemplateFile, err := templates.ReadFile("template/coredns/Corefile")
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to read template file: %w", err)
 			}
 
 			corefileTemplate := template.New("corefile")
 			_, err = corefileTemplate.Parse(string(corefileTemplateFile))
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to parse template file: %w", err)
 			}
 
 			ltld, _ := cmd.Flags().GetString("ltld")
@@ -43,48 +49,63 @@ func setup() *cobra.Command {
 
 			traefikConfigFile, err := templates.ReadFile("template/traefik/traefik.yml")
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to read template file: %w", err)
 			}
 
 			traefikDynamicConfigFile, err := templates.ReadFile("template/traefik/dynamic.yml")
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to read template file: %w", err)
 			}
 
 			dockerComposeFile, err := templates.ReadFile("template/docker/compose.yml")
 			if err != nil {
-				return err
+				return fmt.Errorf("failed to read template file: %w", err)
 			}
 
-			os.WriteFile(
+			err = os.WriteFile(
 				path.Join(ghostHome, "Corefile"),
 				buf.Bytes(),
 				0644,
 			)
+			if err != nil {
+				return fmt.Errorf("failed to write file: %w", err)
+			}
 
-			os.WriteFile(
+			err = os.WriteFile(
 				path.Join(ghostHome, "config"),
 				[]byte(ltld),
 				0644,
 			)
+			if err != nil {
+				return fmt.Errorf("failed to write file: %w", err)
+			}
 
-			os.WriteFile(
+			err = os.WriteFile(
 				path.Join(ghostHome, "traefik.yml"),
 				traefikConfigFile,
 				0644,
 			)
+			if err != nil {
+				return fmt.Errorf("failed to write file: %w", err)
+			}
 
-			os.WriteFile(
+			err = os.WriteFile(
 				path.Join(ghostHome, "dynamic.yml"),
 				traefikDynamicConfigFile,
 				0644,
 			)
+			if err != nil {
+				return fmt.Errorf("failed to write file: %w", err)
+			}
 
-			os.WriteFile(
+			err = os.WriteFile(
 				path.Join(ghostHome, "compose.yml"),
 				dockerComposeFile,
 				0644,
 			)
+			if err != nil {
+				return fmt.Errorf("failed to write file: %w", err)
+			}
 
 			err = applyDNSConfig()
 			if err != nil {
