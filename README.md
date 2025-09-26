@@ -1,5 +1,9 @@
 # GHOST
 
+<p align="center">
+    <img src="docs/images/ghost.png" alt="drawing" width="600"/>
+</p>
+
 ## What we do?
 You know developing multiple projects/services locally can be a pain in the a**...
 
