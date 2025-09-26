@@ -2,8 +2,10 @@ package commands
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"html/template"
+	"io/fs"
 	"os"
 	"path"
 
@@ -19,10 +21,10 @@ func setup() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "setup",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Printf("using `%s` as GHOST_HOME", ghostHome)
+			fmt.Printf("using `%s` as GHOST_HOME\n", ghostHome)
 
 			err := os.Mkdir(ghostHome, 0755)
-			if err != nil {
+			if err != nil && !errors.Is(err, fs.ErrExist) {
 				return fmt.Errorf("failed to create `GHOST_HOME`: %w", err)
 			}
 

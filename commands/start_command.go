@@ -10,7 +10,7 @@ import (
 func startCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "start",
-		Short:   "Start ghost containers",
+		Short:   "Starts ghost containers",
 		Long:    "This command starts the local DNS server and the Traefik proxy.",
 		Example: "ghost start",
 		RunE: func(cmd *cobra.Command, args []string) error {

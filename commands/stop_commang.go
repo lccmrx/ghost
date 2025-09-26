@@ -10,7 +10,7 @@ import (
 func stopCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "stop",
-		Short:   "Start ghost containers",
+		Short:   "Stops ghost containers",
 		Long:    "This command stops the ghost containers.",
 		Example: "ghost start",
 		RunE: func(cmd *cobra.Command, args []string) error {
