@@ -18,6 +18,8 @@ func setup() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "setup",
 		RunE: func(cmd *cobra.Command, args []string) error {
+			os.Mkdir(ghostHome, 0755)
+
 			corefileTemplateFile, err := templates.ReadFile("template/coredns/Corefile")
 			if err != nil {
 				return err
@@ -57,31 +59,31 @@ func setup() *cobra.Command {
 			os.WriteFile(
 				path.Join(ghostHome, "Corefile"),
 				buf.Bytes(),
-				0600,
+				0644,
 			)
 
 			os.WriteFile(
 				path.Join(ghostHome, "config"),
 				[]byte(ltld),
-				0600,
+				0644,
 			)
 
 			os.WriteFile(
 				path.Join(ghostHome, "traefik.yml"),
 				traefikConfigFile,
-				0600,
+				0644,
 			)
 
 			os.WriteFile(
 				path.Join(ghostHome, "dynamic.yml"),
 				traefikDynamicConfigFile,
-				0600,
+				0644,
 			)
 
 			os.WriteFile(
 				path.Join(ghostHome, "compose.yml"),
 				dockerComposeFile,
-				0600,
+				0644,
 			)
 
 			err = applyDNSConfig()
