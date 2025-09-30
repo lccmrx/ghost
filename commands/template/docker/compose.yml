@@ -1,16 +1,5 @@
 services:
 
-  coredns:
-    image: coredns/coredns
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-    volumes:
-      - $GHOST_HOME/Corefile:/Corefile
-    command:
-      - -conf 
-      - /Corefile
-
   traefik:
     image: traefik:latest
     ports:

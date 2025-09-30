@@ -44,10 +44,10 @@ If you already got your Golang installation, just do a:
 > go install github.com/lccmrx/ghost@latest
 ```
 
-### WIP
 Or use HomeBrew:
 ```bash
-brew install ghost
+> brew tap lccmrx/ghost
+> brew install ghost
 ```
 
 ## How to use

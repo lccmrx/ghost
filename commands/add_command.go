@@ -67,6 +67,9 @@ func addCommand() *cobra.Command {
 				0600,
 			)
 
+			fmt.Println("Execute the following command on your terminal:")
+			fmt.Printf("\n>> echo -n '127.0.0.1 %s.%s #ghost\\n' | sudo tee -a /etc/hosts\n\n", args[0], config)
+
 			return nil
 		},
 	}

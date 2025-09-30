@@ -18,6 +18,13 @@ func removeCommand() *cobra.Command {
 		Example: "ghost remove example",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
+			config, err := os.ReadFile(
+				path.Join(ghostHome, "config"),
+			)
+			if err != nil || len(config) == 0 {
+				return fmt.Errorf("error reading config file\n\n>> make sure you've run `ghost setup` before <<")
+			}
+
 			traefikDynamicConfigFile, err := os.ReadFile(
 				path.Join(ghostHome, "dynamic.yml"),
 			)
@@ -41,6 +48,9 @@ func removeCommand() *cobra.Command {
 				dataOut,
 				0600,
 			)
+
+			fmt.Println("Execute the following command on your terminal:")
+			fmt.Printf("\n>> sudo sed '/%s.%s #ghost/d' /etc/hosts\n\n", args[0], config)
 
 			return nil
 		},
